@@ -44,7 +44,6 @@ import PhytosanitariesLearningContainer from './components/PhytosanitariesLearni
 import ContactForm from './components/ContactForm.vue';
 import adventices from './assets/adventices.json';
 import ornamentals from './assets/ornamentals.json';
-import themes from './assets/themes.json';
 
 export default {
   name: 'App',
