@@ -43,20 +43,13 @@
 <script>
 import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
-<<<<<<< HEAD:src/components/LearningContainer.vue
-import ScoreContainer from './ReusablesComponents/ScoreContainer.vue';
-import ToggleSwitch from './ReusablesComponents/ToggleSwitch.vue';
-import Card from './ReusablesComponents/Card.vue';
-import QuizzCard from './ReusablesComponents/QuizzCard.vue';
 
-const assets = require.context('@/assets', false, /\.json$/);
-=======
 import PhytosanitaryScoreContainer from './PhytosanitariesComponents/PhytosanitaryScoreContainer.vue';
 import PhytosanitaryToggleSwitch from './PhytosanitariesComponents/PhytosanitaryToggleSwitch.vue';
 import PhytosanitaryCard from './PhytosanitariesComponents/PhytosanitaryCard.vue';
 import PhytosanitaryQuizzCardContainer from './PhytosanitariesComponents/PhytosanitaryQuizzCard/PhytosanitaryQuizzCardContainer.vue';
 import phytosanitaries from '../assets/phytosanitaries.json';
->>>>>>> parent of 2127822 (Merge pull request #2 from Renaud-CCI/Refactor):src/components/PhytosanitariesLearningContainer.vue
+
 
 export default {
   name: 'PhytosanitariesLearningContainer',
@@ -73,14 +66,7 @@ export default {
     };
   },
   methods: {
-<<<<<<< HEAD:src/components/LearningContainer.vue
 
-    async loadData() {
-      let importedArray = assets(`./${this.theme.json}`);
-      this.componentArray = this.shuffle(Object.values(importedArray.default));
-    },
-=======
->>>>>>> parent of 2127822 (Merge pull request #2 from Renaud-CCI/Refactor):src/components/PhytosanitariesLearningContainer.vue
     shuffle(array) {
       let currentIndex = array.length, temporaryValue, randomIndex;
 
