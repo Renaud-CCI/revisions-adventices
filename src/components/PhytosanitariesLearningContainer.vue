@@ -2,33 +2,32 @@
   <section class="container">
 
     <div class="score-div">
-      <ScoreContainer :isRevision="isRevision" />
+      <PhytosanitaryScoreContainer :PhytosanitaryIsRevision="PhytosanitaryIsRevision" />
     </div>
 
     <h1 
-      class="text-center title-h1"
-      :class="isRevision ? 'text-sky-600' : 'text-amber-500'"
-      :style="{ fontFamily: font }"
+      class="text-center"
+      :class="PhytosanitaryIsRevision ? 'text-sky-600' : 'text-amber-500'" 
     >
-      {{ theme['title'].toUpperCase() }}
+      {{ 'Indesirables'.toUpperCase() }}
     </h1>
 
     <div class="">
-      <ToggleSwitch :isRevision="isRevision" @toggle-mode="handleToggleMode" />
+      <PhytosanitaryToggleSwitch @phytosanitary-toggle-mode="handleToggleMode" />
     </div>
 
     <div class="phytosanitary-refresh-div flex justify-center items-center">
       <button class="text-white bg-sky-600 rounded" @click="refreshPage">Réinitialiser</button>
     </div>
 
-      <Card v-if="isRevision" v-for="(componentItemInfos, index) in componentArray" :key="key" :componentItemInfos="componentItemInfos" :componentName="theme['name']" />
+      <PhytosanitaryCard v-if="PhytosanitaryIsRevision" v-for="(phytosanitary, index) in phytosanitariesArray" :key="key" :phytosanitary="phytosanitary" />
 
-      <QuizzCard v-if="!isRevision" v-for="(componentItemInfos, index) in componentArray" :key="index" :index="index" :componentArray="componentArray" :componentName="theme['name']" />
+      <PhytosanitaryQuizzCardContainer v-if="!PhytosanitaryIsRevision" v-for="(phytosanitary, index) in phytosanitariesArray" :key="index" :index="index" :phytosanitariesArray="phytosanitariesArray" />
     
     <div class="phytosanitary-refresh-div flex justify-center items-center">
       <button 
         class="text-white px-4 py-1 rounded" 
-        :class="isRevision ? 'bg-sky-600' : 'bg-amber-500'" 
+        :class="PhytosanitaryIsRevision ? 'bg-sky-600' : 'bg-amber-500'" 
         @click="refreshClick"
       >
         Réinitialiser
@@ -44,64 +43,44 @@
 <script>
 import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
+<<<<<<< HEAD:src/components/LearningContainer.vue
 import ScoreContainer from './ReusablesComponents/ScoreContainer.vue';
 import ToggleSwitch from './ReusablesComponents/ToggleSwitch.vue';
 import Card from './ReusablesComponents/Card.vue';
 import QuizzCard from './ReusablesComponents/QuizzCard.vue';
 
 const assets = require.context('@/assets', false, /\.json$/);
+=======
+import PhytosanitaryScoreContainer from './PhytosanitariesComponents/PhytosanitaryScoreContainer.vue';
+import PhytosanitaryToggleSwitch from './PhytosanitariesComponents/PhytosanitaryToggleSwitch.vue';
+import PhytosanitaryCard from './PhytosanitariesComponents/PhytosanitaryCard.vue';
+import PhytosanitaryQuizzCardContainer from './PhytosanitariesComponents/PhytosanitaryQuizzCard/PhytosanitaryQuizzCardContainer.vue';
+import phytosanitaries from '../assets/phytosanitaries.json';
+>>>>>>> parent of 2127822 (Merge pull request #2 from Renaud-CCI/Refactor):src/components/PhytosanitariesLearningContainer.vue
 
 export default {
-  name: 'LearningContainer',
-  
+  name: 'PhytosanitariesLearningContainer',
   components: {
-    ScoreContainer,
-    ToggleSwitch,
-    Card,
-    QuizzCard
-  },
-  props: {
-    theme: {
-      type: String,
-      required: true
-    }
+    PhytosanitaryScoreContainer,
+    PhytosanitaryToggleSwitch,
+    PhytosanitaryCard,
+    PhytosanitaryQuizzCardContainer
   },
    data() {
     return {
-      componentArray: null,
-      isRevision: true,
+      phytosanitariesArray: this.shuffle(Object.values(phytosanitaries)),
+      PhytosanitaryIsRevision: true,
     };
   },
-  mounted() {
-    this.loadData();
-  },
-  watch: {
-    theme() {
-      this.componentArray = null;
-      this.isRevision = true;
-      this.loadData();
-    }
-  },
-  computed: {
-    font() {
-      switch (this.theme.name) {
-        case 'phytosanitaries':
-          return 'Science';
-        case 'ornamentals':
-          return 'Flower';
-        case 'adventices':
-          return 'Herb';
-        default:
-          return 'Herb';
-      }
-    }
-  },
   methods: {
+<<<<<<< HEAD:src/components/LearningContainer.vue
 
     async loadData() {
       let importedArray = assets(`./${this.theme.json}`);
       this.componentArray = this.shuffle(Object.values(importedArray.default));
     },
+=======
+>>>>>>> parent of 2127822 (Merge pull request #2 from Renaud-CCI/Refactor):src/components/PhytosanitariesLearningContainer.vue
     shuffle(array) {
       let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -133,24 +112,21 @@ export default {
       }, 800);
     },
     handleToggleMode() {
-      this.isRevision = !this.isRevision;
+      this.PhytosanitaryIsRevision = !this.PhytosanitaryIsRevision;
       const button = document.querySelector('.phytosanitary-refresh-div button');
-      const titleH1 = document.querySelector('.title-h1');
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      if (this.isRevision) {
+      if (this.PhytosanitaryIsRevision) {
         button.style.opacity = "1";
         button.style.marginTop = "1rem";
         button.style.height = isMobile ? "2rem" : "3rem";
         button.style.pointerEvents = "auto";
-        titleH1.style.marginTop = "0";
       } else {
         button.style.opacity = "0";
         button.style.marginTop = "0";
         button.style.height = "0";
         button.style.pointerEvents = "none";
-        titleH1.style.marginTop = "0.5rem";
       }
-      this.$emit('phytosanitaryIsRevisionEvent', this.isRevision);
+      this.$emit('phytosanitaryIsRevisionEvent', this.PhytosanitaryIsRevision);
     }
   }
 }
@@ -163,24 +139,13 @@ export default {
   src: url('@/assets/polices/Science.ttf') format('truetype');
 }
 
-@font-face {
-  font-family: 'Flower';
-  src: url('@/assets/polices/Flower.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Herb';
-  src: url('@/assets/polices/Herb.ttf') format('truetype');
-}
-
 .container {
   padding-top: 3rem;
 
   h1 {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     padding-top: 1rem;
-    margin-top: 0;
-    transition: margin-top 0.5s;
+    font-family: 'Science', sans-serif;
   }
 }
 
